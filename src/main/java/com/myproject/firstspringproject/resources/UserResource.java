@@ -1,6 +1,6 @@
-package com.myproject.firstspringproject;
+package com.myproject.firstspringproject.resources;
 
-import entities.User;
+import com.myproject.firstspringproject.entities.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ public class UserResource {
 
     @GetMapping
     public ResponseEntity<User> findAll(){
-        User user = new User(1,"Maria","Maria@gmail.com", "phone","password");
+        User user = new User(1L,"Maria","Maria@gmail.com", "phone","password");
         return ResponseEntity.ok().body(user);
     }
 }
