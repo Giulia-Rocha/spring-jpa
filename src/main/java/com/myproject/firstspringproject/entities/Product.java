@@ -1,5 +1,6 @@
 package com.myproject.firstspringproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -24,6 +25,9 @@ public class Product implements Serializable {
             joinColumns = @JoinColumn(name = "product_id"), // nome da chave estrangeira da classe atual
             inverseJoinColumns = @JoinColumn(name = "category_id")) // nome da  ch estrangeira da outra classe
     private Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Product() {
     }
@@ -74,6 +78,14 @@ public class Product implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> set = new HashSet<>();
+        for (OrderItem x : items) {
+            set.add(x.getOrder());
+        }
+        return set;
     }
 
     @Override
